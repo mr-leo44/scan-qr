@@ -18,7 +18,8 @@ class AttestationController extends Controller
 
     public function generateQrCode(Request $request, Attestation $attestation)
     {
-	$rts= 'https://diplomesolution.com/public/attestations/'. $attestation->id;        	$qr_generated = QrCode::size(100)->generate($rts);
+        $rts= 'https://diplomesolution.com/'. $attestation->id;
+        $qr_generated = QrCode::size(100)->generate($rts);
         return view('attestations.generate', compact('attestation', 'qr_generated'));
     }
 
@@ -36,16 +37,19 @@ class AttestationController extends Controller
     {
         if($request->hasFile('file')){
             $file = $request->file('file')->store('attestations');
-        } elseif($request->hasFile('image')) {
+        }
+
+        if($request->hasFile('image')) {
             $image = $request->file('image')->store('attestations');
         }
+
         Attestation::create([
             'student_name' =>$request->student_name,
             'file' => $file ?? "",
             'image' => $image ?? "",
         ]);
 
-        return Redirect::route('attestations.index');
+        return Redirect::route('attestations.index')->with('succes', 'L\'enregistrement de l\'attestion a été un succès');
     }
 
     public function edit(Attestation $attestation)
@@ -56,10 +60,13 @@ class AttestationController extends Controller
     public function update(Request $request, Attestation $attestation)
     {
         $file = $attestation->file;
+        $image = $attestation->image;
         if($request->hasFile('file')) {
             Storage::delete($attestation->file);
             $file = $request->file('file')->store('attestations');
-        } elseif($request->hasFile('image')) {
+        }
+
+        if($request->hasFile('image')) {
             Storage::delete($attestation->image);
             $image = $request->file('image')->store('attestations');
         }
@@ -70,8 +77,7 @@ class AttestationController extends Controller
             'image' => $image,
         ]);
 
-        return Redirect::route('attestations.index');
-
+        return Redirect::route('attestations.index')->with('succes', 'La mise à jour de l\'attestation a été un succès');
     }
 
     public function destroy(Attestation $attestation)
@@ -79,7 +85,6 @@ class AttestationController extends Controller
         Storage::delete([$attestation->file, $attestation->image]);
         $attestation->delete();
 
-        return Redirect::route('attestations.index');
-
+        return Redirect::route('attestations.index')->with('succes', 'La suppression de l\'attestation a été un succès');
     }
 }
