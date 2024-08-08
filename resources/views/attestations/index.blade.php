@@ -8,8 +8,8 @@
             </a>
         </div>
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" class="py-3 px-6">
                             ID
@@ -25,16 +25,16 @@
                 <tbody>
                     @foreach ($attestations as $attestation)
                         <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            class="bg-white border-b hover:bg-gray-50">
+                            <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $attestation->id }}
                             </td>
                             <td
-                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white"">
+                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap"">
                                 {{ $attestation->student_name }}
                             </td>
                             <td
-                                class="py-4 px-6 text-sm font-medium text-blue-900 whitespace-nowrap dark:text-white">
+                                class="py-4 px-6 text-sm font-medium text-blue-900 whitespace-nowrap">
                                 <div class="flex space-x-3">
                                     <a href="{{ route('attestations.show', $attestation) }}"
                                         class="px-4 py-2 bg-green-500 hover:bg-emerald-700 rounded-lg text-white">Voir</a>
