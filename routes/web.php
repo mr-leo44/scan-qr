@@ -10,7 +10,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttestationController;
 
 Route::get('/', function () {
-    if(User::count() === 0){
+    if(Auth::user()){
+        return redirect(RouteServiceProvider::HOME);
+    } elseif(User::count() === 0){
         $user = User::create([
            'name' => 'admin',
            'email' => 'admin@diplome.cd',
