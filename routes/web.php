@@ -1,11 +1,29 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttestationController;
 
 Route::get('/', function () {
-    return redirect('https://diplome.cd');
+    if(User::count() === 0){
+        $user = User::create([
+           'name' => 'admin',
+           'email' => 'admin@diplome.cd',
+           'password' => Hash::make('Admin0000')
+        ]);
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(RouteServiceProvider::HOME);
+    } else {
+        return redirect('https://diplome.cd');
+    }
 });
 
 Route::get('/dashboard', function () {
