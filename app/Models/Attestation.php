@@ -9,5 +9,14 @@ class Attestation extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'student_name',
+        'file',
+        'image'
+    ];
+
+    public function getRouteKeyName()
+    {
+        return 'student_name';
+    }
 }
