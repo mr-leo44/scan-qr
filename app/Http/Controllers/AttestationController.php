@@ -12,7 +12,7 @@ class AttestationController extends Controller
 {
     public function index()
     {
-        $attestations = Attestation::all();
+        $attestations = Attestation::latest()->paginate();
         return view('attestations.index', compact('attestations'));
     }
 
@@ -25,7 +25,7 @@ class AttestationController extends Controller
 
     public function create()
     {
-        return view('attestations.create');
+        //
     }
 
     public function show(Attestation $attestation)
