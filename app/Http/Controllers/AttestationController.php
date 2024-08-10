@@ -12,15 +12,13 @@ class AttestationController extends Controller
 {
     public function index()
     {
-        $attestations = Attestation::latest()->paginate();
-        return view('attestations.index', compact('attestations'));
-    }
-
-    public function generateQrCode(Request $request, Attestation $attestation)
-    {
-        $rts= 'https://diplomesolution.com/'. $attestation->id;
-        $qr_generated = QrCode::size(100)->generate($rts);
-        return view('attestations.generate', compact('attestation', 'qr_generated'));
+        $attestations = Attestation::latest()->paginate(10);
+        foreach($attestations as $key => $attestation) {
+            $rts= 'https://diplomesolution.com/attestations'. $attestation->student_name;
+            $qr_generated = QrCode::size(100)->generate($rts);
+            $attestation['qr_code'] = $qr_generated;
+        }
+    return view('attestations.index', compact('attestations'));
     }
 
     public function create()
@@ -49,7 +47,7 @@ class AttestationController extends Controller
             'image' => $image ?? "",
         ]);
 
-        return Redirect::route('attestations.index')->with('succes', 'L\'enregistrement de l\'attestion a été un succès');
+        return Redirect::route('attestations.index')->with('success', 'L\'enregistrement de l\'attestion a été un succès');
     }
 
     public function edit(Attestation $attestation)
@@ -77,7 +75,7 @@ class AttestationController extends Controller
             'image' => $image,
         ]);
 
-        return Redirect::route('attestations.index')->with('succes', 'La mise à jour de l\'attestation a été un succès');
+        return Redirect::route('attestations.index')->with('success', 'La mise à jour de l\'attestation a été un succès');
     }
 
     public function destroy(Attestation $attestation)
@@ -85,6 +83,6 @@ class AttestationController extends Controller
         Storage::delete([$attestation->file, $attestation->image]);
         $attestation->delete();
 
-        return Redirect::route('attestations.index')->with('succes', 'La suppression de l\'attestation a été un succès');
+        return Redirect::route('attestations.index')->with('success', 'La suppression de l\'attestation a été un succès');
     }
 }
