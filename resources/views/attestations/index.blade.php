@@ -66,7 +66,8 @@
                                 <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap"">
                                     {{ $attestation->student_name }}
                                 </td>
-                                <td class="py-4 px-6 text-sm font-medium text-blue-900 whitespace-nowrap">
+                                <td
+                                    class="py-4 px-6 flex justify-end text-sm font-medium text-blue-900 whitespace-nowrap">
                                     <div class="flex space-x-3">
                                         <a href="{{ route('qrcode', $attestation) }}">
                                             <div
@@ -80,40 +81,41 @@
                                                         d="M7 7h.01v.01H7V7Zm10 10h.01v.01H17V17Z" />
                                                 </svg>
                                             </div>
-                                            <a href="{{ route('attestations.show', $attestation) }}">
-                                                <div
-                                                    class="font-medium cursor-pointer bg-amber-400 hover:bg-amber-400 dark:bg-amber-400 py-2 px-3 rounded text-white dark:text-white">
-                                                    <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path fill-rule="evenodd"
-                                                            d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                </div>
-                                            </a>
-                                            <a href="{{ route('attestations.edit', $attestation) }}"
-                                                class="font-medium cursor-pointer bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 py-2 px-3 rounded text-white dark:text-white">
+                                        </a>
+                                        <a href="{{ route('attestations.show', $attestation) }}">
+                                            <div
+                                                class="font-medium cursor-pointer bg-amber-400 hover:bg-amber-400 dark:bg-amber-400 py-2 px-3 rounded text-white dark:text-white">
                                                 <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                                                        clip-rule="evenodd" />
                                                 </svg>
-                                            </a>
-                                            <a href="{{ route('attestations.destroy', $attestation) }}"
-                                                data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                                                onclick="supprimer(event)"
-                                                class="font-medium cursor-pointer bg-red-600 hover:bg-red-700 dark:bg-red-700 py-2 px-3 rounded text-white dark:text-white">
-                                                <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
-                                                </svg>
-                                            </a>
+                                            </div>
+                                        </a>
+                                        <button data-modal-target="edit-modal" data-modal-toggle="edit-modal"
+                                            type="button"
+                                            class="font-medium cursor-pointer bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 py-2 px-3 rounded text-white dark:text-white">
+                                            <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                                            </svg>
+                                        </button>
+                                        <a href="{{ route('attestations.destroy', $attestation) }}"
+                                            data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                                            onclick="supprimer(event)"
+                                            class="font-medium cursor-pointer bg-red-600 hover:bg-red-700 dark:bg-red-700 py-2 px-3 rounded text-white dark:text-white">
+                                            <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                                            </svg>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -134,5 +136,6 @@
         </div>
     </div>
     <x-attestation-create />
+    <x-attestation-edit :attestation="$attestation" />
     <x-delete :message="__('Voulez-vous vraiment supprimer cet attestation ?')" />
 </x-app-layout>
