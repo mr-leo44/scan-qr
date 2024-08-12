@@ -13,12 +13,14 @@ class AttestationController extends Controller
     public function index()
     {
         $attestations = Attestation::latest()->paginate(10);
-        foreach($attestations as $key => $attestation) {
-            $rts= 'https://diplomesolution.com/attestations'. $attestation->student_name;
+        foreach ($attestations as $key => $attestation) {
+            $rts = 'https://diplomesolution.com/attestations' . $attestation->student_name;
             $qr_generated = QrCode::size(100)->generate($rts);
-            $attestation['qr_code'] = $qr_generated;
+            $qr_code = html_entity_decode($qr_generated);
+            $attestation['qr_code'] = $qr_code;
         }
-    return view('attestations.index', compact('attestations'));
+        // dd($attestations[0]['qr_code']);
+        return view('attestations.index', compact('attestations'));
     }
 
     public function create()
@@ -33,16 +35,16 @@ class AttestationController extends Controller
 
     public function store(Request $request)
     {
-        if($request->hasFile('file')){
+        if ($request->hasFile('file')) {
             $file = $request->file('file')->store('attestations');
         }
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image = $request->file('image')->store('attestations');
         }
 
         Attestation::create([
-            'student_name' =>$request->student_name,
+            'student_name' => $request->student_name,
             'file' => $file ?? "",
             'image' => $image ?? "",
         ]);
@@ -59,12 +61,12 @@ class AttestationController extends Controller
     {
         $file = $attestation->file;
         $image = $attestation->image;
-        if($request->hasFile('file')) {
+        if ($request->hasFile('file')) {
             Storage::delete($attestation->file);
             $file = $request->file('file')->store('attestations');
         }
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             Storage::delete($attestation->image);
             $image = $request->file('image')->store('attestations');
         }
