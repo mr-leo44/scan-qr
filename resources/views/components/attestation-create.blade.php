@@ -4,15 +4,6 @@
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="p-4 md:p-5">
                 <div class="max-h-auto mx-auto max-w-md">
-                    @if ($errors->any())
-                        <div class="bg-red-500 text-white px-3 py-2 rounded-lg mb-4">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <form class="w-full mx-auto" method="POST" action="{{ route('attestations.store') }}"
                         enctype="multipart/form-data">
                         @csrf
@@ -21,9 +12,7 @@
                         </div>
                         <div>
                             <x-input-label for="student_name" :value="__('Nom')" />
-                            <x-text-input id="student_name" class="block mt-1 w-full" type="text" name="student_name"
-                                :value="old('student_name')" required autofocus
-                                autocomplete="student_name" />
+                            <x-text-input id="student_name" class="block mt-1 w-full" type="text" name="student_name" required autofocus />
                             <x-input-error :messages="$errors->get('student_name')" class="mt-2" />
                         </div>
                         <div class="mt-2">
