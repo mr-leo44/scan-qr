@@ -1,32 +1,27 @@
-@props(['attestation'])
 <div id="edit-modal" tabindex="-1" aria-hidden="true"
     class="hidden mx-auto overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center max-w-md md:inset-0 max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <div class="p-4 md:p-5">
+            <button data-modal-hide="edit-modal" type="button"
+                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-hide="edit-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5">
                 <div class="max-h-auto mx-auto max-w-md">
-                    @if ($errors->any())
-                        <div class="bg-red-500 text-white px-3 py-2 rounded-lg mb-4">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <form class="w-full mx-auto" method="POST" action="{{ route('attestations.update', $attestation) }}"
-                        enctype="multipart/form-data">
+                    <form class="w-full mx-auto" method="POST" action="" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="my-6">
                             <h3 class="font-semibold text-lg text-center">Editer un enregistrement</h3>
                         </div>
-                        <div>
-                            <x-input-label for="student_name" :value="__('Nom')" />
-                            <x-text-input id="student_name" class="block mt-1 w-full" type="text" name="student_name"
-                                value="{{ $attestation->student_name }}" required autofocus
-                                autocomplete="student_name" />
-                            <x-input-error :messages="$errors->get('student_name')" class="mt-2" />
+                        <div class="add">
+
                         </div>
                         <div class="mt-2">
                             <x-input-label for="file" :value="__('Attestations')" />
@@ -56,3 +51,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function openEdit(attestation) {
+        const div = document.querySelector(".add")
+        const content = `<x-input-label for="student_name" :value="__('Nom')" />
+                            <x-text-input id="student_name" class="block mt-1 w-full" type="text" name="student_name"
+                            value="${attestation.student_name}" required autofocus />
+                            <x-input-error :messages="$errors->get('student_name')" class="mt-2" />`
+        div.innerHTML = content
+        const link = window.location.href + "/" + attestation.student_name
+        document.querySelector("#edit-modal form").setAttribute('action', link)
+    }
+</script>
