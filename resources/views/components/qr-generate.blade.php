@@ -1,4 +1,3 @@
-{{-- @props(['attestation']) --}}
 <div id="qr-generate" tabindex="-1" aria-hidden="true"
     class="hidden mx-auto overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center max-w-md md:inset-0 max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
