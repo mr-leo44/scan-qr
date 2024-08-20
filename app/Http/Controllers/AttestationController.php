@@ -19,7 +19,6 @@ class AttestationController extends Controller
             $qr_code = html_entity_decode($qr_generated);
             $attestation['qr_code'] = $qr_code;
         }
-        // dd($attestations[0]['qr_code']);
         return view('attestations.index', compact('attestations'));
     }
 
@@ -35,12 +34,18 @@ class AttestationController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'student_name' => ['required','string','min:5','unique:'.Attestation::class],
+            'file' => ['file','mimes:pdf', 'max:2048'],
+            'image' => ['file','mimes:jpg,png,jpeg','max:2048']
+        ]);
+
         if ($request->hasFile('file')) {
-            $file = $request->file('file')->store('attestations');
+            $file = $request->file('file')->store('attestations/pdf');
         }
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('attestations');
+            $image = $request->file('image')->store('attestations/images');
         }
 
         Attestation::create([
@@ -54,21 +59,27 @@ class AttestationController extends Controller
 
     public function edit(Attestation $attestation)
     {
-        return view('attestations.edit', compact('attestation'));
+        //
     }
 
     public function update(Request $request, Attestation $attestation)
     {
+        $request->validate([
+            'student_name' => ['required','string','min:5','unique:'.Attestation::class],
+            'file' => ['file','mimes:pdf', 'max:2048'],
+            'image' => ['file','mimes:jpg,png,jpeg','max:2048']
+        ]);
+
         $file = $attestation->file;
         $image = $attestation->image;
         if ($request->hasFile('file')) {
             Storage::delete($attestation->file);
-            $file = $request->file('file')->store('attestations');
+            $file = $request->file('file')->store('attestations/pdf');
         }
 
         if ($request->hasFile('image')) {
             Storage::delete($attestation->image);
-            $image = $request->file('image')->store('attestations');
+            $image = $request->file('image')->store('attestations/images');
         }
 
         $attestation->update([
