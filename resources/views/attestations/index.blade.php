@@ -44,7 +44,7 @@
                 </button>
             </div>
             <div class="relative w-full mx-auto overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-md text-center text-gray-500">
+                <table class="w-full text-md text-center text-gray-500" id="index-table">
                     <thead class="text-md text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <th scope="col" class="py-3 px-6">
@@ -130,13 +130,25 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mx-auto my-4 px-auto">
+            {{-- <div class="mx-auto my-4 px-auto">
                 {{ $attestations->links() }}
-            </div>
+            </div> --}}
         </div>
     </div>
     <x-attestation-create />
     <x-attestation-edit />
     <x-qr-generate />
     <x-delete :message="__('Voulez-vous vraiment supprimer cette attestation ?')" />
+
+    <script>
+        const data = new simpleDatatables.DataTable("#index-table", {
+            searchable: true,
+            fixedHeight: true,
+            paging: true, // enable or disable pagination
+            perPage: 10, // set the number of rows per page
+            perPageSelect: [5, 10, 20, 50], // set the number of rows per page options
+            firstLast: true, // enable or disable the first and last buttons
+            nextPrev: true,
+        })
+    </script>
 </x-app-layout>
