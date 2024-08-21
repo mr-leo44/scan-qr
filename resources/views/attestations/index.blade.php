@@ -46,14 +46,14 @@
             <div class="relative w-full mx-auto overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-md text-center text-gray-500" id="index-table">
                     <thead class="text-md text-gray-700 uppercase bg-gray-50">
-                        <tr>
+                        <tr class="py-4">
                             <th scope="col" class="py-3 px-6">
                                 N°
                             </th>
-                            <th scope="col" class="py-3 px-6">
+                            <th scope="col" class="py-3 px-6 !text-center">
                                 Nom
                             </th>
-                            <th scope="col" class="py-3 px-6"></th>
+                            <th scope="col" class="py-3 px-6 !text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -144,11 +144,18 @@
         const data = new simpleDatatables.DataTable("#index-table", {
             searchable: true,
             fixedHeight: true,
-            paging: true, // enable or disable pagination
-            perPage: 10, // set the number of rows per page
-            perPageSelect: [5, 10, 20, 50], // set the number of rows per page options
-            firstLast: true, // enable or disable the first and last buttons
+            paging: true,
+            perPage: 10,
+            perPageSelect: [5, 10, 20, 50],
+            firstLast: true,
             nextPrev: true,
         })
+
+        const searchInput = document.querySelector(".datatable-input");
+        const perPageSelect = document.querySelector(".datatable-selector");
+        searchInput.classList.add("px-4", "py-2", "border", "border-gray-300", "dark:border-white", "rounded-lg",
+            "focus:outline-none", "focus:ring-2", "focus:ring-blue-500", "focus:border-blue-500", "w-full")
+        perPageSelect.classList.add("px-4", "py-2", "border", "border-gray-300", "dark:border-white", "rounded-lg",
+            "focus:outline-none", "focus:ring-2", "focus:ring-blue-500", "focus:border-blue-500")
     </script>
 </x-app-layout>

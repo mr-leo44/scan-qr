@@ -12,7 +12,7 @@ class AttestationController extends Controller
 {
     public function index()
     {
-        $attestations = Attestation::latest()->paginate(10);
+        $attestations = Attestation::latest()->get();
         foreach ($attestations as $key => $attestation) {
             $rts = 'https://diplomesolution.com/attestations' . $attestation->student_name;
             $qr_generated = QrCode::size(100)->generate($rts);
