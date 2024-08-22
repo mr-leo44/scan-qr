@@ -18,6 +18,14 @@ export default {
             fontFamily: {
                 sans: ['Figtree','raleway', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                "footer": "#02213d",
+                "telecharger": "#0079fe",
+                "reclamer": "#007afe",
+                "left": "#3473b3",
+                "right": "#3693f4",
+                "two": "#f8f9fb",
+            }
         },
     },
 
