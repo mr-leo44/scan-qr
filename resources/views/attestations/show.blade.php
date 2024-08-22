@@ -5,16 +5,16 @@
     </div>
     <div class="mx-auto w-full text-center px-auto pt-12">
       <div class="inline-flex justify-center w-full">
-        <a href="http://scan-qr.test/storage/{{ $attestation->file }}" class="bg-telecharger-bg py-2 px-3 text-white  rounded-md">Télecharger</a>
-        <a href="https://www.diplome.cd/reclamation" class="bg-reclamer-bg center ml-4 py-2 px-3 text-white  rounded-md">Réclamation</a>
+        <a href="{{ config('app.url') }}/storage/{{ $attestation->file }}" class="bg-telecharger py-2 px-3 text-white  rounded-md">Télecharger</a>
+        <a href="https://www.diplome.cd/reclamation" class="bg-reclamer center ml-4 py-2 px-3 text-white  rounded-md">Réclamation</a>
       </div>
       <h2 class="font-bold text-3xl px-12 text-gray-800 mt-2">Félicitations</h2>
       <h2 class="font-bold text-3xl px-16 text-gray-800">{{ $attestation->student_name }} 👏💐👏</h2>
       <div class="mx-auto py-12 px-6">
-        <img src="http://scan-qr.test/storage/{{ $attestation->image }}" class="w-full h-64" alt="">
+        <img src="{{ config('app.url') }}/storage/{{ $attestation->image }}" class="w-full h-64" alt="">
       </div>
     </div>
-    <div class="bg-bg-two">
+    <div class="bg-two">
       <div class="rounded-lg text-center py-8">
         <img src="{{ asset('assets/epst.png') }}" alt="" class="h-76 px-28">
       </div>
