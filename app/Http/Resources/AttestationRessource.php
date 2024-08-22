@@ -16,10 +16,9 @@ class AttestationRessource extends JsonResource
     {
         return [
             'id' =>$this->id,
-            'qr_code' => $this->qr_code,
             'student_name' => $this->student_name,
-            'percentage' => $this->percentage,
             'file' => asset('/storage/' . $this->file),
+            'image' => asset('/storage/' . $this->image),
         ];
     }
 }
