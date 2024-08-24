@@ -14,7 +14,7 @@ class AttestationController extends Controller
     {
         $attestations = Attestation::latest()->get();
         foreach ($attestations as $key => $attestation) {
-            $rts = 'https://diplomesolution.com/attestations' . $attestation->student_name;
+            $rts = route('attestations.show',$attestation->student_name);
             $qr_generated = QrCode::size(100)->generate($rts);
             $qr_code = html_entity_decode($qr_generated);
             $attestation['qr_code'] = $qr_code;
@@ -30,6 +30,10 @@ class AttestationController extends Controller
     public function show(Attestation $attestation)
     {
         return view('attestations.show', compact('attestation'));
+    }
+    public function generatePDF(Attestation $attestation)
+    {
+        return view('pdf.generate', compact('attestation'));
     }
 
     public function store(Request $request)
