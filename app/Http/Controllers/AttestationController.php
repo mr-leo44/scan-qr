@@ -48,7 +48,9 @@ class AttestationController extends Controller
         $domPdf->loadHtml($html);
         $domPdf->setPaper('A4', 'portrait');
         $domPdf->render();
-        return $domPdf->stream("$attestation->student_name.pdf");
+        return response()->streamDownload(function() use ($domPdf) {
+            echo $domPdf->output();
+        },"$attestation->student_name.pdf", ['Content-Type' => 'application/pdf']);
     }
 
     public function store(Request $request)
