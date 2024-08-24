@@ -9,7 +9,7 @@
         <a href="https://www.diplome.cd/reclamation" class="bg-reclamer center ml-4 py-2 px-3 text-white  rounded-md">Réclamation</a>
       </div>
       <h2 class="font-bold text-3xl px-12 text-gray-800 mt-2">Félicitations</h2>
-      <h2 class="font-bold text-3xl px-16 text-gray-800">{{ $attestation->student_name }} 👏💐👏</h2>
+      <h2 class="font-bold text-3xl px-16 text-gray-800 uppercase">{{ $attestation->student_name }} 👏💐👏</h2>
       <div class="mx-auto py-12 px-6">
         <img src="{{ config('app.url') }}/storage/{{ $attestation->image }}" class="w-full h-64" alt="">
       </div>

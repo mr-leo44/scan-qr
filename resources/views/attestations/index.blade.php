@@ -63,7 +63,7 @@
                                     <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                         {{ $key + 1 }}
                                     </td>
-                                    <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap uppercase">
                                         {{ $attestation->student_name }}
                                     </td>
                                     <td
