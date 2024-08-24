@@ -37,7 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('attestations', AttestationController::class)->except(['show']);
-
+    Route::post('attestations/{attestation}/generatepdf',  [AttestationController::class, 'generatePDF'])->name('attestations.generatePDF');
+    // Route::get('generated',  [AttestationController::class, 'generated'])->name('attestations.generated');
 });
 
 Route::get('attestations/{attestation}',  [AttestationController::class, 'show'])->name('attestations.show');

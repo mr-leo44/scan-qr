@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\Attestation;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -18,6 +21,7 @@ class AttestationController extends Controller
             $qr_generated = QrCode::size(100)->generate($rts);
             $qr_code = html_entity_decode($qr_generated);
             $attestation['qr_code'] = $qr_code;
+            $attestation['pdf_link'] = route('attestations.generatePDF', $attestation->student_name);
         }
         return view('attestations.index', compact('attestations'));
     }
@@ -31,9 +35,20 @@ class AttestationController extends Controller
     {
         return view('attestations.show', compact('attestation'));
     }
-    public function generatePDF(Attestation $attestation)
+    public function generatePDF(Request $request, Attestation $attestation)
     {
-        return view('pdf.generate', compact('attestation'));
+        $rts = route('attestations.show',$attestation->student_name);
+        $qr_generated = QrCode::size(200)->generate($rts);
+        $qr_code = base64_encode($qr_generated);
+        $html = view('pdf.generate', compact('attestation', 'qr_code'))->render();
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $domPdf = new Dompdf($options);
+        $domPdf->loadHtml($html);
+        $domPdf->setPaper('A4', 'portrait');
+        $domPdf->render();
+        return $domPdf->stream("$attestation->student_name.pdf");
     }
 
     public function store(Request $request)
