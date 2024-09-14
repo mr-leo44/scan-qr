@@ -15,8 +15,8 @@ class Attestation extends Model
         'image'
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'student_name';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'student_name';
+    // }
 }
