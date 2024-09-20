@@ -21,7 +21,7 @@ class AttestationController extends Controller
             $qr_generated = QrCode::size(100)->generate($rts);
             $qr_code = html_entity_decode($qr_generated);
             $attestation['qr_code'] = $qr_code;
-            $attestation['pdf_link'] = route('attestations.generatePDF', $attestation->student_name);
+            $attestation['pdf_link'] = route('attestations.generatePDF', $attestation->id);
         }
         return view('attestations.index', compact('attestations'));
     }
