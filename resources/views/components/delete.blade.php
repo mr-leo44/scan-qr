@@ -38,7 +38,7 @@
 <script>
     function supprimer(event, attestation) {
         event.preventDefault()
-        const link = window.location.href + "/" + attestation.student_name
+        const link = window.location.href + "/" + attestation.id
         document.querySelector("#delete-modal form").setAttribute('action', link)
     }
 </script>

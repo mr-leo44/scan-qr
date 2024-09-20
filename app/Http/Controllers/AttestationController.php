@@ -17,7 +17,7 @@ class AttestationController extends Controller
     {
         $attestations = Attestation::latest()->get();
         foreach ($attestations as $key => $attestation) {
-            $rts = route('attestations.show',$attestation->student_name);
+            $rts = route('attestations.show',$attestation->id);
             $qr_generated = QrCode::size(100)->generate($rts);
             $qr_code = html_entity_decode($qr_generated);
             $attestation['qr_code'] = $qr_code;
@@ -37,7 +37,7 @@ class AttestationController extends Controller
     }
     public function generatePDF(Request $request, Attestation $attestation)
     {
-        $rts = route('attestations.show',$attestation->student_name);
+        $rts = route('attestations.show',$attestation->id);
         $qr_generated = QrCode::size(200)->generate($rts);
         $qr_code = base64_encode($qr_generated);
         $html = view('pdf.generate', compact('attestation', 'qr_code'))->render();
@@ -86,7 +86,7 @@ class AttestationController extends Controller
     public function update(Request $request, Attestation $attestation)
     {
         $request->validate([
-            'student_name' => ['required','string','min:5','unique:'.Attestation::class],
+            'student_name' => ['required','string','min:5'],
             'file' => ['file','mimes:pdf', 'max:2048'],
             'image' => ['file','mimes:jpg,png,jpeg','max:2048']
         ]);

@@ -60,7 +60,7 @@
                             value="${attestation.student_name}" required autofocus />
                             <x-input-error :messages="$errors->get('student_name')" class="mt-2" />`
         div.innerHTML = content
-        const link = window.location.href + "/" + attestation.student_name
+        const link = window.location.href + "/" + attestation.id
         document.querySelector("#edit-modal form").setAttribute('action', link)
     }
 </script>
